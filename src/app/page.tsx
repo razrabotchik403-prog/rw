@@ -253,7 +253,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-```tsx
+
       <section
         id="solutions"
         className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12"
