@@ -376,7 +376,7 @@ export default function Home() {
 
       <section id="technology" className="border-t border-white/[0.08]">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-8 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-          <p>© {new Date().getFullYear()} Road Wizard. Разумный подход к дорожным данным.</p>
+          <p>© 2026 Road Wizard. Разумный подход к дорожным данным.</p>
           <p>Android · GPS · Анализ сигналов · Прототип ML</p>
         </div>
       </section>
