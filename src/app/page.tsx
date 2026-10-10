@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const lime = "#CAFF00";
 
 function RoadMark() {
@@ -257,12 +257,33 @@ function RouteVisual() {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 100);
+  };
+
+  handleScroll();
+  window.addEventListener("scroll", handleScroll, { passive: true });
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   return (
 
     <main className="min-h-screen overflow-hidden bg-[#121026] text-white selection:bg-[#CAFF00] selection:text-[#121026]">
       
-<header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#121026]/90 backdrop-blur-xl">
+
+<header
+  className={`sticky top-0 z-50 border-b border-white/[0.08] bg-[#121026]/90 backdrop-blur-xl transition-all duration-300 ${
+    scrolled
+      ? "pointer-events-none -translate-y-full opacity-0"
+      : "translate-y-0 opacity-100"
+  }`}
+>
   <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
     <a
       href="#"
@@ -275,6 +296,7 @@ export default function Home() {
         ROAD<span className="text-[#CAFF00]">WIZARD</span>
       </span>
     </a>
+
 
     {/* Навигация для компьютеров */}
     <nav className="hidden items-center gap-8 text-sm text-white/65 md:flex">
@@ -382,6 +404,47 @@ export default function Home() {
     </nav>
   </div>
 </header>
+
+{/* Закреплённая панель скачивания */}
+<div
+  className={`fixed inset-x-0 top-0 z-[60] border-b border-white/10 bg-[#229ED9] shadow-lg transition-all duration-300 ${
+    scrolled
+      ? "translate-y-0 opacity-100"
+      : "pointer-events-none -translate-y-full opacity-0"
+  }`}
+>
+  <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-3 sm:px-8 lg:px-12">
+    <div className="min-w-0">
+      <p className="truncate text-sm font-bold text-white sm:text-base">
+        Road Wizard
+      </p>
+      <p className="hidden text-xs text-white/85 sm:block">
+        Приложение для анализа состояния дорог
+      </p>
+    </div>
+
+    <a
+      href="https://t.me/roadwizarduz"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="rw-download-button inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold !text-black transition hover:bg-white/90 sm:px-5"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M21.8 4.2 18.6 19.3c-.24 1.07-.87 1.33-1.76.83l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.96 9.03-8.16c.39-.35-.08-.55-.6-.2L6.26 13.1 1.5 11.6c-1.03-.32-1.05-1.03.22-1.53L20.3 2.9c.85-.31 1.6.2 1.5 1.3Z" />
+      </svg>
+      Скачать приложение
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</div>
+
 
 
       <section className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pb-24 sm:pt-20 lg:grid-cols-[1.05fr_.95fr] lg:gap-14 lg:px-12 lg:pb-28 lg:pt-24">
