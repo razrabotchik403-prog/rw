@@ -1,13 +1,35 @@
-
 @import "tailwindcss";
 
+/* ========================================
+   ROAD WIZARD — DESIGN SYSTEM
+   ======================================== */
+
 :root {
+  color-scheme: dark;
+
   --background: #121026;
+  --background-soft: #17152e;
+  --surface: #1b1933;
+  --surface-hover: #23213d;
+
   --foreground: #f8f9fa;
-  --accent: #CAFF00;
   --muted: #a4a3b5;
+  --accent: #CAFF00;
+  --accent-hover: #dcff52;
+
   --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.17);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 36px;
+
+  --container-width: 1200px;
+  --page-padding: 24px;
 }
+
+/* Tailwind theme */
 
 @theme inline {
   --color-background: var(--background);
@@ -17,13 +39,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Reset */
+
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: rgba(202, 255, 0, 0.35) var(--background);
 }
 
 body {
@@ -31,10 +57,16 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
+
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+
+  overflow-x: clip;
 }
 
 ::selection {
@@ -64,14 +96,186 @@ button {
 }
 
 img,
-svg {
+svg,
+video,
+canvas {
   max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--foreground);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1 {
+  line-height: 1.05;
+}
+
+h2 {
+  line-height: 1.15;
+}
+
+small {
+  color: var(--muted);
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #393650;
+  border: 2px solid var(--background);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #55516e;
+}
+
+/* Shared visual effects */
+
+.rw-glass {
+  background: rgba(27, 25, 51, 0.72);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.rw-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.rw-card:hover {
+  background: var(--surface-hover);
+  border-color: rgba(202, 255, 0, 0.24);
+}
+
+.rw-muted {
+  color: var(--muted);
+}
+
+.rw-accent {
+  color: var(--accent);
+}
+
+/* Accent glow */
+
+.rw-glow {
+  box-shadow: 0 0 40px rgba(202, 255, 0, 0.08);
+}
+
+/* Smooth interactive controls */
+
+a,
+button,
+input,
+textarea,
+select {
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+a:focus-visible,
+button:focus-visible {
+  border-radius: 6px;
+}
+
+/* Layout helpers */
+
+.rw-container {
+  width: min(
+    calc(100% - var(--page-padding) * 2),
+    var(--container-width)
+  );
+  margin-inline: auto;
+}
+
+.rw-section {
+  padding-block: clamp(64px, 9vw, 120px);
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  :root {
+    --page-padding: 18px;
+    --radius-lg: 22px;
+    --radius-xl: 28px;
+  }
+
+  html {
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .rw-section {
+    padding-block: 64px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --page-padding: 16px;
+  }
+
+  .rw-section {
+    padding-block: 48px;
+  }
+}
+
+/* Accessibility: reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -83,4 +287,3 @@ svg {
     transition-duration: 0.01ms !important;
   }
 }
-```
