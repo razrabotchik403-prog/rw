@@ -18,37 +18,46 @@ function RoadMark() {
   );
 }
 
-function AppScreenshots() {
-  const [active, setActive] = useState(0);
 
+function AppScreenshots() {
   const screens = [
     {
-      title: "Мониторинг поездки",
-      description: "Сбор данных во время движения",
-      icon: "⌁",
-      metric: "GPS + SENSOR",
-      color: "#CAFF00",
+      src: "/screenshots/road-map.png",
+      title: "Карта дорог",
+      description: "Карта участков и результаты измерений.",
     },
     {
-      title: "Карта маршрута",
-      description: "Визуализация дорожных участков",
-      icon: "⌖",
-      metric: "ROUTE TRACKING",
-      color: "#A78BFA",
+      src: "/screenshots/road-analysis.png",
+      title: "Анализ дорожного покрытия",
+      description: "Оценка состояния дорожного полотна.",
     },
     {
-      title: "Анализ покрытия",
-      description: "Обработка сигналов смартфона",
-      icon: "⌁",
-      metric: "ROAD ANALYTICS",
-      color: "#60A5FA",
+      src: "/screenshots/road-profile.png",
+      title: "Профиль дороги",
+      description: "Визуализация результатов анализа.",
     },
   ];
 
-  const screen = screens[active];
+  const [active, setActive] = useState(0);
+const [isOpen, setIsOpen] = useState(false);
+const [zoom, setZoom] = useState(1);
+
+const screen = screens[active];
+
+  const previous = () => {
+    setActive((current) =>
+      (current - 1 + screens.length) % screens.length
+    );
+  };
+
+  const next = () => {
+    setActive((current) =>
+      (current + 1) % screens.length
+    );
+  };
 
   return (
-    <div className="mb-5 overflow-hidden rounded-[28px] border border-white/10 bg-[#17162e] p-5 sm:p-6">
+    <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#17162e] p-5 sm:p-6">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#CAFF00]">
@@ -58,85 +67,157 @@ function AppScreenshots() {
             Приложение в действии
           </h3>
         </div>
+
         <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
-          0{active + 1} / 03
+          {String(active + 1).padStart(2, "0")} / {String(screens.length).padStart(2, "0")}
         </span>
       </div>
 
-      <div className="mt-5 flex justify-center">
-        <div className="w-full max-w-[230px] rounded-[32px] border border-white/15 bg-[#0d0c1b] p-2 shadow-2xl">
-          <div className="overflow-hidden rounded-[25px] bg-[#121026]">
-            <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-white/15" />
+      <div className="relative mt-5 flex min-h-[320px] items-center justify-center rounded-2xl bg-[#121026] p-3 sm:min-h-[460px] sm:p-6">
+       <img
+  key={screen.src}
+  src={screen.src}
+  alt={screen.title}
+  onClick={() => {
+    setIsOpen(true);
+    setZoom(1);
+  }}
+  className="max-h-[560px] w-full cursor-zoom-in select-none object-contain"
+/>
 
-            <div className="px-4 pb-5 pt-5">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#CAFF00] font-bold text-[#121026]">
-                  RW
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-white">ROAD WIZARD</p>
-                  <p className="text-[9px] text-white/40">SMART ROAD MONITORING</p>
-                </div>
-              </div>
+        <button
+          type="button"
+          onClick={previous}
+          aria-label="Предыдущий скриншот"
+          className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-[#121026]/90 text-2xl text-white transition hover:border-[#CAFF00] hover:text-[#CAFF00] sm:left-4"
+        >
+          ‹
+        </button>
 
-              <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                <p className="text-[9px] uppercase tracking-wider text-white/40">
-                  {screen.metric}
-                </p>
-                <div className="mt-3 flex h-20 items-center justify-center rounded-xl bg-white/[0.03]">
-                  <span
-                    className="text-5xl"
-                    style={{ color: screen.color }}
-                  >
-                    {screen.icon}
-                  </span>
-                </div>
-                <p className="mt-3 text-sm font-semibold text-white">
-                  {screen.title}
-                </p>
-                <p className="mt-1 text-[10px] leading-4 text-white/45">
-                  {screen.description}
-                </p>
-              </div>
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Следующий скриншот"
+          className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-[#121026]/90 text-2xl text-white transition hover:border-[#CAFF00] hover:text-[#CAFF00] sm:right-4"
+        >
+          ›
+        </button>
+      </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <div className="rounded-xl bg-white/[0.04] p-3">
-                  <p className="text-[9px] text-white/40">Платформа</p>
-                  <p className="mt-1 text-xs font-semibold text-white">Android</p>
-                </div>
-                <div className="rounded-xl bg-white/[0.04] p-3">
-                  <p className="text-[9px] text-white/40">Режим</p>
-                  <p className="mt-1 text-xs font-semibold text-white">Preview</p>
-                </div>
-              </div>
+      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h4 className="font-semibold text-white">
+            {screen.title}
+          </h4>
+          <p className="mt-1 text-sm text-white/45">
+            {screen.description}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {screens.map((item, index) => (
+            <button
+              key={item.src}
+              type="button"
+              onClick={() => setActive(index)}
+              aria-label={`Показать экран: ${item.title}`}
+              aria-pressed={active === index}
+              className={`h-2.5 rounded-full transition-all ${
+                active === index
+                  ? "w-8 bg-[#CAFF00]"
+                  : "w-2.5 bg-white/25 hover:bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+      
+      </div>
+
+      {/* Полноэкранный просмотр скриншота */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
+          onClick={() => setIsOpen(false)}
+          onWheel={(event) => {
+            event.preventDefault();
+            setZoom((current) =>
+              event.deltaY < 0
+                ? Math.min(3, current + 0.2)
+                : Math.max(1, current - 0.2)
+            );
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            aria-label="Закрыть изображение"
+            className="absolute right-5 top-5 z-[101] text-4xl text-white"
+          >
+            ×
+          </button>
+
+          <div
+            className="flex max-h-[90vh] max-w-[95vw] flex-col items-center gap-4"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() =>
+                  setZoom((current) => Math.max(1, current - 0.25))
+                }
+                className="rounded-lg border border-white/20 px-4 py-2 text-xl text-white"
+              >
+                −
+              </button>
+
+              <span className="text-white">
+                {Math.round(zoom * 100)}%
+              </span>
+
+              <button
+                type="button"
+                onClick={() =>
+                  setZoom((current) => Math.min(3, current + 0.25))
+                }
+                className="rounded-lg border border-white/20 px-4 py-2 text-xl text-white"
+              >
+                +
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setZoom(1)}
+                className="rounded-lg border border-white/20 px-3 py-2 text-white"
+              >
+                Сбросить
+              </button>
             </div>
+
+            <div className="max-h-[78vh] max-w-[95vw] overflow-auto">
+              <img
+                src={screen.src}
+                alt={screen.title}
+                draggable={false}
+                style={{
+                  transform: `scale(${zoom})`,
+                  transformOrigin: "top left",
+                }}
+                className="max-h-[75vh] max-w-[90vw] object-contain"
+              />
+            </div>
+
+            <p className="text-sm text-white/60">
+              {screen.title} · Колёсико мыши — масштабирование
+            </p>
           </div>
         </div>
-      </div>
-
-      <div className="mt-5 flex items-center justify-center gap-2">
-        {screens.map((item, index) => (
-          <button
-            key={item.title}
-            type="button"
-            aria-label={`Экран ${index + 1}: ${item.title}`}
-            aria-pressed={active === index}
-            onClick={() => setActive(index)}
-            className={`h-2 rounded-full transition-all ${
-              active === index
-                ? "w-8 bg-[#CAFF00]"
-                : "w-2 bg-white/20 hover:bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
-
-      <p className="mt-4 text-center text-[10px] leading-5 text-white/35">
-        Демонстрационный макет. Не является скриншотом реального приложения.
-      </p>
+      )}
     </div>
   );
 }
+
+
 
 function RouteVisual() {
   return (
@@ -255,6 +336,52 @@ function RouteVisual() {
 }
 
 
+function TypingText({
+  text,
+  delay = 0,
+}: {
+  text: string;
+  delay?: number;
+}) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let interval: number | undefined;
+    const timeout = window.setTimeout(() => {
+      interval = window.setInterval(() => {
+        setCount((previous) => {
+          if (previous >= text.length) {
+            if (interval !== undefined) {
+              window.clearInterval(interval);
+            }
+            return previous;
+          }
+
+          return previous + 1;
+        });
+      }, 75);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timeout);
+      if (interval !== undefined) {
+        window.clearInterval(interval);
+      }
+    };
+  }, [text, delay]);
+
+  return (
+    <>
+      {text.slice(0, count)}
+      <span
+        aria-hidden="true"
+        className={`ml-1 inline-block h-[0.8em] w-[3px] translate-y-[0.08em] bg-current ${
+          count < text.length ? "animate-pulse" : "opacity-0"
+        }`}
+      />
+    </>
+  );
+}
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -458,13 +585,17 @@ useEffect(() => {
             </span>
           </div>
 
-          <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] tracking-[-0.055em] sm:text-6xl lg:text-[76px]">
-            Дороги можно
-            <br />
-            измерять.
-            <br />
-            <span className="text-[#CAFF00]">Теперь — умнее.</span>
-          </h1>
+           <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] tracking-[-0.055em] sm:text-6xl lg:text-[76px]">
+  <span className="block">
+    <TypingText text="Дороги можно" delay={0} />
+  </span>
+  <span className="block">
+    <TypingText text="измерять." delay={900} />
+  </span>
+  <span className="block text-[#CAFF00]">
+    <TypingText text="Теперь — умнее." delay={1550} />
+  </span>
+</h1>
 
           <p className="mt-7 max-w-xl text-base leading-7 text-white/60 sm:text-lg sm:leading-8">
             Road Wizard превращает данные смартфона в информацию о состоянии
@@ -504,8 +635,13 @@ useEffect(() => {
 
         <div className="relative z-[1]">
           <div className="absolute -inset-5 rounded-[40px] bg-[#CAFF00]/[0.035] blur-2xl" />
-          <AppScreenshots />
-          <RouteVisual />
+          
+
+
+          <div className="flex flex-col gap-6">
+  <AppScreenshots />
+  <RouteVisual />
+</div>
           <div className="mt-4 flex items-start gap-3 px-1">
             <span className="mt-0.5 text-[#CAFF00]">ⓘ</span>
             <p className="max-w-lg text-xs leading-5 text-white/40">
