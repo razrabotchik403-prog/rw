@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 const lime = "#CAFF00";
+import Link from "next/link";
 
 function RoadMark() {
   return (
@@ -602,7 +603,13 @@ useEffect(() => {
             дорожного покрытия — чтобы помогать замечать проблемные участки и
             принимать решения на основе данных.
           </p>
-
+<Link
+  href="/roadmap"
+  className="inline-flex items-center gap-2 rounded-xl border border-[#CAFF00]/40 bg-[#CAFF00]/10 px-5 py-3 text-sm font-semibold text-[#CAFF00] transition hover:bg-[#CAFF00]/20"
+>
+  Дальнейшее развитие проекта
+  <span aria-hidden="true">↗</span>
+</Link>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
               href="#how-it-works"

@@ -288,3 +288,65 @@ button:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+/* Принудительно чёрный текст кнопки скачивания */
+.rw-download-button,
+.rw-download-button span,
+.rw-download-button svg {
+  color: #000000 !important;
+}
+
+/* ROAD WIZARD — animated gradient background */
+
+html {
+  min-height: 100%;
+  background-color: #121026;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #121026;
+  background-image:
+    radial-gradient(
+      ellipse at 15% 20%,
+      rgba(91, 55, 160, 0.42),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 85% 25%,
+      rgba(202, 255, 0, 0.13),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 70% 80%,
+      rgba(45, 70, 145, 0.38),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 10% 90%,
+      rgba(0, 160, 170, 0.14),
+      transparent 40%
+    );
+  background-size: 200% 200%;
+  background-attachment: fixed;
+  animation: roadWizardBg 18s ease-in-out infinite alternate;
+}
+
+@keyframes roadWizardBg {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+}
