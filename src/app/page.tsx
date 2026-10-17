@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 const lime = "#CAFF00";
 import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 
 function RoadMark() {
   return (
@@ -951,32 +952,7 @@ useEffect(() => {
         </div>
       </section>
 
-      <footer className="border-t border-white/[0.08]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-          <a
-            href="#"
-            className="flex items-center gap-3"
-            aria-label="Road Wizard — наверх"
-          >
-            <RoadMark />
-            <span className="text-sm font-bold tracking-tight">
-              ROAD<span className="text-[#CAFF00]">WIZARD</span>
-            </span>
-          </a>
-
-          <p className="text-xs leading-6 text-white/40">
-            © 2026 Road Wizard. Разумный подход к дорожным данным.
-          </p>
-
-          <a
-            href="#"
-            className="text-sm text-white/55 transition hover:text-[#CAFF00]"
-          >
-            Наверх ↑
-          </a>
-        </div>
-      </footer>
-
+      <SiteFooter />
     </main>
   );
 }
